@@ -1,4 +1,4 @@
-baseURL: http://example.org/
+baseURL: https://v3-content-style.github.io/V3-demo/
 languageCode: en-us
 title: Emergent Interpretable Symbols and Content-Style Disentanglement via Variance-Invariance Constraints
 
