@@ -2,12 +2,12 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:1313/V3-demo/</loc>
+    <loc>https://v3-content-style.github.io/V3-demo/</loc>
   </url><url>
-    <loc>http://localhost:1313/V3-demo/_index_old/</loc>
+    <loc>https://v3-content-style.github.io/V3-demo/_index_old/</loc>
   </url><url>
-    <loc>http://localhost:1313/V3-demo/categories/</loc>
+    <loc>https://v3-content-style.github.io/V3-demo/categories/</loc>
   </url><url>
-    <loc>http://localhost:1313/V3-demo/tags/</loc>
+    <loc>https://v3-content-style.github.io/V3-demo/tags/</loc>
   </url>
 </urlset>

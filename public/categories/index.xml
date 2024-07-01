@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Categories on Emergent Interpretable Symbols and Content-Style Disentanglement via Variance-Invariance Constraints</title>
-    <link>http://localhost:1313/V3-demo/categories/</link>
+    <link>https://v3-content-style.github.io/V3-demo/categories/</link>
     <description>Recent content in Categories on Emergent Interpretable Symbols and Content-Style Disentanglement via Variance-Invariance Constraints</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>en-us</language>
-    <atom:link href="http://localhost:1313/V3-demo/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://v3-content-style.github.io/V3-demo/categories/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
