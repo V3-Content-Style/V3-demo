@@ -10,8 +10,8 @@ align: justify
 </span>
 
 
-This demonstration page serves as a supplement to the paper. We provide interactive demos for the two tasks mentioned in the paper. The demos allow you to explore the learned latent space, learned codebook as the emergent vocabulary, and the style transfer results performed by learned latent representations.
-- **Visualizations**: You can adjust the codebook size through the radio buttons to see how the visualization changes. The **t-SNE visualizations** of latent content and style representations provide an intuitive understanding of the **disentanglement**. The **confusion matrix** of the codebook shows how well the learned vocabulary **align with human knowledge**.
+This demonstration page serves as a supplement to the paper. We provide interactive demos for the two tasks mentioned in the paper. The demos allow you to explore the learned latent space, learned codebook as the emergent vocabulary, and the style transfer results performed by recombining learned latent representations.
+- **Visualizations**: You can adjust the codebook size through the radio buttons to see how the visualization changes. The **t-SNE visualizations** of latent content and style representations provide an intuitive understanding of the **disentanglement**. The colors of data points denote ground truth content or style labels. The **confusion matrix** of the codebook shows how well the learned vocabulary **align with human knowledge**. The horizontal axis represents the ground truth contents, and the vertical axis represents the learned codebook entries. The deeper the color, the higher the correlation.
 - **Style Transfer**: Under a specific codebook size, you can select an individual content or style to see the corresponding style transfer results. If a content index is selected, we will show the style transfer results of this content recombined with all styles (taking the mean of the style representations). If a style index is selected, we will show the style transfer results of this style recombined with all contents. Note that the content indices are sorted in the order of the codebook.
 
 We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper. Note that all models shown in the demos have already got **good reconstruction performance**, which we omit here for simplicity.
@@ -19,7 +19,9 @@ We compare V3 with the MINE-based method and the cycle loss-based method as ment
 <br>
 
 ## Music Task Demo: Learning Pitches and Timbres
-<table style="text-align: center; margin:auto">
+<div class="taskdemo-container">
+    <h3>Example data</h3>
+    <table style="text-align: center; margin:auto">
         <tr>
             <td>
                 <image src="music_data_sample_1.png" style="width: 100%; margin:auto">
@@ -27,40 +29,53 @@ We compare V3 with the MINE-based method and the cycle loss-based method as ment
             <td>
                 <image src="music_data_sample_2.png" style="width: 100%; margin:auto">
             </td>
+            <td>
+                <image src="music_data_sample_3.png" style="width: 100%; margin:auto">
+            </td>
         </tr>
         <tr>
             <td>
-                <audio controls controlsList="nodownload" preload="none">
+                <audio id="player1" controls controlsList="nodownload" preload="none">
                     <source src="music_data_sample_1.wav">
                 </audio>
             </td>
             <td>
-                <audio controls controlsList="nodownload" preload="none">
+                <audio id="player2" controls controlsList="nodownload" preload="none">
                     <source src="music_data_sample_2.wav">
+                </audio>
+            </td>
+            <td>
+                <audio id="player3" controls controlsList="nodownload" preload="none">
+                    <source src="music_data_sample_3.wav">
                 </audio>
             </td>
         </tr>
     </table>
+</div>
 
-In this demo, we show how V3 learns to disentangle pitch and timbre from raw music audio played by single instruments. Above shows the spectrogram and the audio of a sample of the dataset. There are 12 pitches (a full octaive) and 12 timbres involved in the dataset. V3 learns to disentangle the pitch content and timbre style from audio samples like above without any supervision except segmentation.
+In this demo, we show that V3 can learn to disentangle pitch and timbre from raw music audio played by single instruments. Above shows the spectrograms and the audio files of some samples in the dataset. There are 12 pitches (a full octave) and 12 timbres involved in the dataset. Note that although each sample is played by only one instrument, there are rich velocity and amplitude envelope variations.
+
+We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the music dataset without any supervision except segmentation. Below shows the **latent space visualizations**, **codebook confusion matrices** and **style transfer results** of all methods under different codebook size settings.
 
 <div class="taskdemo-container">
-    <h3>Proposed: V3</h3>
-    Codebook size: 
-    <input type="radio" value="12" checked="checked" name="music_codebook_v3"> <!--checked设置默认选中-->
+    <h3>Please choose codebook size:</h3> 
+    <input type="radio" value="12" checked="checked" name="music_codebook"> <!--checked设置默认选中-->
     K=12
-    <input type="radio" value="24" name="music_codebook_v3">
+    <input type="radio" value="24" name="music_codebook">
     K=24
-    <input type="radio" value="48" name="music_codebook_v3">
+    <input type="radio" value="48" name="music_codebook">
     K=48
-    <br><br>
+    <br>
+    <h3>Visualizations</h3>
     <table style="text-align: center; margin:auto">
         <tr>
+            <th>Method</td>
             <th style="width: 33%">Content Visualization</td>
             <th style="width: 33%">Style Visualization</td>
             <th style="width: 33%">Codebook Confusion Matrix</td>
         </tr>
         <tr>
+            <td>V3 (Proposed)</td>
             <td>
                 <image src="music_v3_12/emb_c_tsne_3d.svg" id="music_v3_12_c" style="display: ">
                 <image src="music_v3_24/emb_c_tsne_3d.svg" id="music_v3_24_c" style="display: none"> 
@@ -78,44 +93,7 @@ In this demo, we show how V3 learns to disentangle pitch and timbre from raw mus
             </td>
         </tr>
         <tr>
-            <td>
-                <image src="music_legend_c.svg" id="music_c_legend" style="width: 42%; margin: auto">
-            </td>
-            <td>
-                <image src="music_legend_s.svg" id="music_s_legend" style="width: 100%; margin: auto">
-            </td>
-            <td>
-                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
-            </td>
-        </tr>
-    </table>
-    <br>
-    Fix content index, traverse all styles:
-    <div id="select_music_v3_fix_c"></div>
-    Fix style, traverse all content indices:
-    <div id="select_music_v3_fix_s"></div>
-    <br>
-    <div id="transfer_music_v3"></div>
-    From both the visualizations and the style transfer results, we can see that V3 successfully learns to disentangle the pitches and timbres well. The content and style representations show clear locality compared to ground truth labels, and the confusion matrices show a near one-to-one alignment with human knowledge. The style transfer results are all correct when K=12, and are correct under well-learned content indices when K=24 and K=48, as we can see the fundamental frequency is consistent when we fix the content index and traverse all styles, and the timbre is consistent when we fix the style and traverse all content indices.
-</div>
-
-<div class="taskdemo-container">
-    <h3>Baseline: MINE-based</h3>
-    Codebook size: 
-    <input type="radio" value="12" checked="checked" name="music_codebook_mine"> <!--checked设置默认选中-->
-    K=12
-    <input type="radio" value="24" name="music_codebook_mine">
-    K=24
-    <input type="radio" value="48" name="music_codebook_mine">
-    K=48
-    <br><br>
-    <table style="text-align: center; margin:auto">
-        <tr>
-            <th style="width: 33%">Content Visualization</td>
-            <th style="width: 33%">Style Visualization</td>
-            <th style="width: 33%">Codebook Confusion Matrix</td>
-        </tr>
-        <tr>
+            <td>MINE-based</td>
             <td>
                 <image src="music_mine_12/emb_c_tsne_3d.svg" id="music_mine_12_c" style="display: ">
                 <image src="music_mine_24/emb_c_tsne_3d.svg" id="music_mine_24_c" style="display: none"> 
@@ -133,44 +111,7 @@ In this demo, we show how V3 learns to disentangle pitch and timbre from raw mus
             </td>
         </tr>
         <tr>
-            <td>
-                <image src="music_legend_c.svg" id="music_c_legend" style="width: 42%; margin: auto">
-            </td>
-            <td>
-                <image src="music_legend_s.svg" id="music_s_legend" style="width: 100%; margin: auto">
-            </td>
-            <td>
-                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
-            </td>
-        </tr>
-    </table>
-    <br>
-    Fix content index, traverse all styles:
-    <div id="select_music_mine_fix_c"></div>
-    Fix style, traverse all content indices:
-    <div id="select_music_mine_fix_s"></div>
-    <br>
-    <div id="transfer_music_mine"></div>
-    Compared to V3, the MINE-based baseline doesn't learn the codebook or disentangled representations as well. The latent representation visualizations are pretty messy, and only a few codebook atoms align with human knowledge when K=24. Also, the style transfer results are hardly correct, as it keeps repeating the same pitch using random timbres.
-</div>
-
-<div class="taskdemo-container">
-    <h3>Baseline: Cycle Loss</h3>
-    Codebook size: 
-    <input type="radio" value="12" checked="checked" name="music_codebook_cycle"> <!--checked设置默认选中-->
-    K=12
-    <input type="radio" value="24" name="music_codebook_cycle">
-    K=24
-    <input type="radio" value="48" name="music_codebook_cycle">
-    K=48
-    <br><br>
-    <table style="text-align: center; margin:auto">
-        <tr>
-            <th style="width: 33%">Content Visualization</td>
-            <th style="width: 33%">Style Visualization</td>
-            <th style="width: 33%">Codebook Confusion Matrix</td>
-        </tr>
-        <tr>
+            <td>Cycle loss</td>
             <td>
                 <image src="music_cycle_12/emb_c_tsne_3d.svg" id="music_cycle_12_c" style="display: ">
                 <image src="music_cycle_24/emb_c_tsne_3d.svg" id="music_cycle_24_c" style="display: none"> 
@@ -188,6 +129,7 @@ In this demo, we show how V3 learns to disentangle pitch and timbre from raw mus
             </td>
         </tr>
         <tr>
+            <td>Legends</td>
             <td>
                 <image src="music_legend_c.svg" id="music_c_legend" style="width: 42%; margin: auto">
             </td>
@@ -200,13 +142,63 @@ In this demo, we show how V3 learns to disentangle pitch and timbre from raw mus
         </tr>
     </table>
     <br>
-    Fix content index, traverse all styles:
-    <div id="select_music_cycle_fix_c"></div>
+    <h3>Please choose content or style for transfer:</h3>
+    <table>
+        <tr>
+            <td>
+                Fix content index, traverse all styles:
+            </td>
+            <td>
+            Or
+            </td>
+            <td>
+                Fix style, traverse all content indices:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="select_music_fix_c"></div>
+            </td>
+            <td>
+            </td>
+            <td>
+                <div id="select_music_fix_s"></div>
+            </td>
+        </tr>
+    </table>
+    <!-- Fix content index, traverse all styles:
+    <div id="select_music_fix_c"></div>
     Fix style, traverse all content indices:
-    <div id="select_music_cycle_fix_s"></div>
-    <br>
-    <div id="transfer_music_cycle"></div>
-    Compared to V3, the cycle loss-based baseline can learn style representations with some extent of locality, but both the content representations and the confusion matrices are significantly worse than V3. The style transfer results are also incorrect, as it fails to distinguish different pitches.
+    <div id="select_music_fix_s"></div> -->
+    <h3>Transfer results</h3>
+    <table>
+        <tr>
+            <td>
+                V3 (Proposed)
+            </td>
+            <td>
+                <div id="transfer_music_v3"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                MINE-based
+            </td>
+            <td>
+                <div id="transfer_music_mine"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cycle loss
+            </td>
+            <td>
+                <div id="transfer_music_cycle"></div>
+            </td>
+        </tr>
+    </table>
+    <!-- <div id="transfer_music"></div> -->
+    From both the visualizations and the style transfer results, we can see that V3 successfully learns to disentangle the pitches and timbres well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a clear one-to-one alignment with human knowledge when there is no codebook redundancy (K=12), and most codebook entries are still interpretable when there is codebook redundancy (K=24 and K=48). The style transfer results are also correct and semantically meaningful when K=12 compared to the baselines. Even though there are imperfections when K=24 and K=48, the results are still better than the baselines as all pitches are covered when traversing all content indices with a fixed style, and all notes are produced as supposed when traversing all timbres with a meaningful fixed content index well-aligned with human knowledge. 
 </div>
 
 <br><br><br>
@@ -214,27 +206,34 @@ In this demo, we show how V3 learns to disentangle pitch and timbre from raw mus
 ## Image Task Demo: Learning Digits and Colors
 <a id="image"></a>
 
-<image src="image_data_sample.svg" style="display: ">
+<div class="taskdemo-container">
+    <h3>Example data</h3>
+    <image src="image_data_sample.svg" style="display: ">
+</div>
 
-In this demo, we show how V3 learns to disentangle digits and colors from images of written digit strings. First, we show some samples of the dataset above. There are 10 digits and 8 colors involved in the dataset. V3 learns to disentangle the digit content and color style from the above images without any supervision except segmentation.
+In this demo, we show that V3 can learn to disentangle digits and colors from images of written digit strings. Above shows eight samples of different colors in the dataset. All 10 digits are involved, written in eight different colors. Note that although every line is written in a single color, there are rich variations in the position, noise, foreground and background color jitter, and the blurriness of digits.
+
+We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the image dataset without any supervision except segmentation. Below shows the **latent space visualizations**, **codebook confusion matrices** and **style transfer results** of all methods under different codebook size settings.
 
 <div class="taskdemo-container">
-    <h3>Proposed: V3</h3>
-    Codebook size: 
-    <input type="radio" value="10" checked="checked" name="image_codebook_v3"> <!--checked设置默认选中-->
+    <h3>Please choose codebook size:</h3> 
+    <input type="radio" value="10" checked="checked" name="image_codebook"> <!--checked设置默认选中-->
     K=10
-    <input type="radio" value="20" name="image_codebook_v3">
+    <input type="radio" value="20" name="image_codebook">
     K=20
-    <input type="radio" value="40" name="image_codebook_v3">
+    <input type="radio" value="40" name="image_codebook">
     K=40
-    <br><br>
+    <br>
+    <h3>Visualizations</h3>
     <table style="text-align: center; margin:auto">
         <tr>
+            <th>Method</td>
             <th style="width: 33%">Content Visualization</td>
             <th style="width: 33%">Style Visualization</td>
             <th style="width: 33%">Codebook Confusion Matrix</td>
         </tr>
         <tr>
+            <td>V3 (Proposed)</td>
             <td>
                 <image src="image_v3_10/emb_c_tsne_3d.svg" id="image_v3_10_c" style="display: ">
                 <image src="image_v3_20/emb_c_tsne_3d.svg" id="image_v3_20_c" style="display: none"> 
@@ -252,44 +251,7 @@ In this demo, we show how V3 learns to disentangle digits and colors from images
             </td>
         </tr>
         <tr>
-            <td>
-                <image src="image_legend_c.svg" id="image_c_legend" style="width: 50%; margin: auto">
-            </td>
-            <td>
-                <image src="image_legend_s.svg" id="image_s_legend" style="width: 80%; margin: auto">
-            </td>
-            <td>
-                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
-            </td>
-        </tr>
-    </table>
-    <br>
-    Fix content index, traverse all styles:
-    <div id="select_image_v3_fix_c"></div>
-    Fix style, traverse all content indices:
-    <div id="select_image_v3_fix_s"></div>
-    <br>
-    <div id="transfer_image_v3"></div>
-    From both the visualizations and the style transfer results, we can see that V3 successfully learns to disentangle the digit content and color style well. The content and style representations show clear locality compared to ground truth labels, and the confusion matrices show a near one-to-one alignment with human knowledge. The style transfer results are also correct and semantically meaningful.
-</div>
-
-<div class="taskdemo-container">
-    <h3>Baseline: MINE-based</h3>
-    Codebook size: 
-    <input type="radio" value="10" checked="checked" name="image_codebook_mine"> <!--checked设置默认选中-->
-    K=10
-    <input type="radio" value="20" name="image_codebook_mine">
-    K=20
-    <input type="radio" value="40" name="image_codebook_mine">
-    K=40
-    <br><br>
-    <table style="text-align: center; margin:auto">
-        <tr>
-            <th style="width: 33%">Content Visualization</td>
-            <th style="width: 33%">Style Visualization</td>
-            <th style="width: 33%">Codebook Confusion Matrix</td>
-        </tr>
-        <tr>
+            <td>MINE-based</td>
             <td>
                 <image src="image_mine_10/emb_c_tsne_3d.svg" id="image_mine_10_c" style="display: ">
                 <image src="image_mine_20/emb_c_tsne_3d.svg" id="image_mine_20_c" style="display: none"> 
@@ -307,45 +269,7 @@ In this demo, we show how V3 learns to disentangle digits and colors from images
             </td>
         </tr>
         <tr>
-            <td>
-                <image src="image_legend_c.svg" id="image_c_legend" style="width: 50%; margin: auto">
-            </td>
-            <td>
-                <image src="image_legend_s.svg" id="image_s_legend" style="width: 80%; margin: auto">
-            </td>
-            <td>
-                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
-            </td>
-        </tr>
-    </table>
-    <br>
-    Fix content index, traverse all styles:
-    <div id="select_image_mine_fix_c"></div>
-    Fix style, traverse all content indices:
-    <div id="select_image_mine_fix_s"></div>
-    <br>
-    <div id="transfer_image_mine"></div>
-    Compared to V3, the MINE-based baseline doesn't learn the codebook or disentangled representations as well. Although both content and style representations show some extent to locality, and the confusion matrices show a stair-like structure, the performances are significantly worse than V3, which is also reflected in the style transfer results.
-</div>
-
-
-<div class="taskdemo-container">
-    <h3>Baseline: Cycle Loss</h3>
-    Codebook size: 
-    <input type="radio" value="10" checked="checked" name="image_codebook_cycle"> <!--checked设置默认选中-->
-    K=10
-    <input type="radio" value="20" name="image_codebook_cycle">
-    K=20
-    <input type="radio" value="40" name="image_codebook_cycle">
-    K=40
-    <br><br>
-    <table style="text-align: center; margin:auto">
-        <tr>
-            <th style="width: 33%">Content Visualization</td>
-            <th style="width: 33%">Style Visualization</td>
-            <th style="width: 33%">Codebook Confusion Matrix</td>
-        </tr>
-        <tr>
+            <td>Cycle loss</td>
             <td>
                 <image src="image_cycle_10/emb_c_tsne_3d.svg" id="image_cycle_10_c" style="display: ">
                 <image src="image_cycle_20/emb_c_tsne_3d.svg" id="image_cycle_20_c" style="display: none"> 
@@ -363,11 +287,12 @@ In this demo, we show how V3 learns to disentangle digits and colors from images
             </td>
         </tr>
         <tr>
+            <td>Legends</td>
             <td>
-                <image src="image_legend_c.svg" id="image_c_legend" style="width: 50%; margin: auto">
+                <image src="image_legend_c.svg" id="image_c_legend" style="width: 42%; margin: auto">
             </td>
             <td>
-                <image src="image_legend_s.svg" id="image_s_legend" style="width: 80%; margin: auto">
+                <image src="image_legend_s.svg" id="image_s_legend" style="width: 100%; margin: auto">
             </td>
             <td>
                 <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
@@ -375,13 +300,63 @@ In this demo, we show how V3 learns to disentangle digits and colors from images
         </tr>
     </table>
     <br>
-    Fix content index, traverse all styles:
-    <div id="select_image_cycle_fix_c"></div>
+    <h3>Please choose content or style for transfer:</h3>
+    <table>
+        <tr>
+            <td>
+                Fix content index, traverse all styles:
+            </td>
+            <td>
+            Or
+            </td>
+            <td>
+                Fix style, traverse all content indices:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="select_image_fix_c"></div>
+            </td>
+            <td>
+            </td>
+            <td>
+                <div id="select_image_fix_s"></div>
+            </td>
+        </tr>
+    </table>
+    <!-- Fix content index, traverse all styles:
+    <div id="select_image_fix_c"></div>
     Fix style, traverse all content indices:
-    <div id="select_image_cycle_fix_s"></div>
-    <br>
-    <div id="transfer_image_cycle"></div>
-    Compared to V3, the cycle loss-based baseline can learn a codebook with fair interpretability especially when the codebook size is large. However, the disentanglement performance is significantly worse than V3, as only the content representation is disentangled, but the style representation is still heavily entangled with the content.
+    <div id="select_image_fix_s"></div> -->
+    <h3>Transfer results</h3>
+    <table>
+        <tr>
+            <td>
+                V3 (Proposed)
+            </td>
+            <td>
+                <div id="transfer_image_v3"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                MINE-based
+            </td>
+            <td>
+                <div id="transfer_image_mine"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cycle loss
+            </td>
+            <td>
+                <div id="transfer_image_cycle"></div>
+            </td>
+        </tr>
+    </table>
+    <!-- <div id="transfer_music"></div> -->
+    From both the visualizations and the style transfer results, we can see that V3 successfully learns to disentangle the digits and colors well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a near one-to-one alignment with human knowledge when there is no codebook redundancy (K=10), and a full coverage and interpretability when there is codebook redundancy (K=20 and K=40). The style transfer results are also correct and semantically meaningful compared to the baselines.
 </div>
 
 <script src="js/music.js"></script>

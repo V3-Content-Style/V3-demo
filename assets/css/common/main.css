@@ -126,3 +126,13 @@ option {
     padding: 30px 50px 30px 50px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
+#player1 {
+  width: 90%;
+}
+#player2 {
+  width: 90%;
+}
+#player3 {
+  width: 90%;
+}
