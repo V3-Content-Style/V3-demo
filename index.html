@@ -159,13 +159,165 @@
 <p><em><strong>Abstract:</strong></em> <span class="lowlight-gray">
 We contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style &mdash; <strong>content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples</strong>. We integrate such inductive bias into an encoder-decoder architecture and name our method after V3 (<strong>v</strong>ariance-<strong>v</strong>ersus-in<strong>v</strong>ariance). Experimental results show that V3 generalizes across two distinct domains in different modalities, music audio and images of written digits, successfully learning pitch-timbre and digit-color disentanglements, respectively. Also, the disentanglement robustness significantly outperforms baseline unsupervised methods and is even comparable to supervised counterparts. Furthermore, symbolic-level interpretability emerges in the learned codebook of content, forging a near one-to-one alignment between machine representation and human knowledge.
 </span></p>
-<p>This demonstration page serves as a supplement to the paper. We provide interactive demos for the two tasks mentioned in the paper. The demos allow you to explore the learned latent space, learned codebook as the emergent vocabulary, and the style transfer results performed by recombining learned latent representations.</p>
+<p>This demonstration page serves as a supplement to the paper. We provide interactive demos for the two tasks mentioned in the paper. The demos allow you to explore the learned codebook as the emergent vocabulary, the learned latent space,and the synthesized results performed by recombining latent content and style representations.</p>
 <ul>
-<li><strong>Visualizations</strong>: You can adjust the codebook size through the radio buttons to see how the visualization changes. The <strong>t-SNE visualizations</strong> of latent content and style representations provide an intuitive understanding of the <strong>disentanglement</strong>. The colors of data points denote ground truth content or style labels. The <strong>confusion matrix</strong> of the codebook shows how well the learned vocabulary <strong>align with human knowledge</strong>. The horizontal axis represents the ground truth contents, and the vertical axis represents the learned codebook entries. The deeper the color, the higher the correlation.</li>
-<li><strong>Style Transfer</strong>: Under a specific codebook size, you can select an individual content or style to see the corresponding style transfer results. If a content index is selected, we will show the style transfer results of this content recombined with all styles (taking the mean of the style representations). If a style index is selected, we will show the style transfer results of this style recombined with all contents. Note that the content indices are sorted in the order of the codebook.</li>
+<li><strong>Visualizations</strong>: You can adjust the codebook size through the radio buttons to see how the visualization changes. The <strong>confusion matrix</strong> of the codebook shows how well the learned vocabulary <strong>align with human knowledge</strong>. The horizontal axis represents the ground truth contents, and the vertical axis represents the learned codebook entries. The deeper the color, the higher the correlation. The <strong>t-SNE visualizations</strong> of latent content and style representations provide an intuitive understanding of the <strong>disentanglement</strong>. The colors of data points denote ground truth content or style labels.</li>
+<li><strong>Content-Style Recombination</strong>: We also illustrate the successfulness of content-style disentanglement by synthesizing new samples through recombining latent content and style factors. Under a specific codebook size, you can select an individual content or style to see the corresponding recombination results. If a content index is selected, we will show the style transfer results of this content recombined with all styles (taking the mean of the style representations). If a style index is selected, we will show the style transfer results of this style recombined with all contents. Note that the content indices are sorted in the order of the codebook.</li>
 </ul>
 <p>We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper. Note that all models shown in the demos have already got <strong>good reconstruction performance</strong>, which we omit here for simplicity.</p>
 <br>
+<h2 id="image-task-demo-learning-digits-and-colors">Image Task Demo: Learning Digits and Colors<a hidden class="anchor" aria-hidden="true" href="#image-task-demo-learning-digits-and-colors">#</a></h2>
+<p><a id="image"></a></p>
+<div class="taskdemo-container">
+    <h3>Example data</h3>
+    <image src="image_data_sample.svg" style="display: ">
+</div>
+<p>In this demo, we show that V3 can learn to disentangle digits and colors from images of written digit strings. Above shows eight samples of different colors in the dataset. All 10 digits are involved, written in eight different colors. Note that although every line is written in a single color, there are rich variations in the position, noise, foreground and background color jitter, and the blurriness of digits.</p>
+<p>We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the image dataset without any supervision except segmentation. Below shows the <strong>codebook confusion matrices</strong>, <strong>latent space visualizations</strong> and <strong>content-style recombinations</strong> of all methods under different codebook size settings.</p>
+<div class="taskdemo-container">
+    <h3>Please choose codebook size:</h3> 
+    <input type="radio" value="10" checked="checked" name="image_codebook"> <!--checked设置默认选中-->
+    K=10
+    <input type="radio" value="20" name="image_codebook">
+    K=20
+    <input type="radio" value="40" name="image_codebook">
+    K=40
+    <br>
+    <h3>Visualizations</h3>
+    <table style="text-align: center; margin:auto">
+        <tr>
+            <th>Method</td>
+            <th style="width: 33%">Codebook Confusion Matrix</td>
+            <th style="width: 33%">Content Visualization</td>
+            <th style="width: 33%">Style Visualization</td>
+        </tr>
+        <tr>
+            <td>V3 (Proposed)</td>
+            <td>
+                <image src="image_v3_10/codebook_confusion_matrix.svg" id="image_v3_10_cf" style="display: ">
+                <image src="image_v3_20/codebook_confusion_matrix.svg" id="image_v3_20_cf" style="display: none"> 
+                <image src="image_v3_40/codebook_confusion_matrix.svg" id="image_v3_40_cf" style="display: none"> 
+            </td>
+            <td>
+                <image src="image_v3_10/emb_c_tsne_3d.svg" id="image_v3_10_c" style="display: ">
+                <image src="image_v3_20/emb_c_tsne_3d.svg" id="image_v3_20_c" style="display: none"> 
+                <image src="image_v3_40/emb_c_tsne_3d.svg" id="image_v3_40_c" style="display: none">
+            </td>
+            <td>
+                <image src="image_v3_10/emb_s_tsne_3d.svg" id="image_v3_10_s" style="display: ">
+                <image src="image_v3_20/emb_s_tsne_3d.svg" id="image_v3_20_s" style="display: none"> 
+                <image src="image_v3_40/emb_s_tsne_3d.svg" id="image_v3_40_s" style="display: none"> 
+            </td>
+        </tr>
+        <tr>
+            <td>MINE-based</td>
+            <td>
+                <image src="image_mine_10/codebook_confusion_matrix.svg" id="image_mine_10_cf" style="display: ">
+                <image src="image_mine_20/codebook_confusion_matrix.svg" id="image_mine_20_cf" style="display: none"> 
+                <image src="image_mine_40/codebook_confusion_matrix.svg" id="image_mine_40_cf" style="display: none"> 
+            </td>
+            <td>
+                <image src="image_mine_10/emb_c_tsne_3d.svg" id="image_mine_10_c" style="display: ">
+                <image src="image_mine_20/emb_c_tsne_3d.svg" id="image_mine_20_c" style="display: none"> 
+                <image src="image_mine_40/emb_c_tsne_3d.svg" id="image_mine_40_c" style="display: none">
+            </td>
+            <td>
+                <image src="image_mine_10/emb_s_tsne_3d.svg" id="image_mine_10_s" style="display: ">
+                <image src="image_mine_20/emb_s_tsne_3d.svg" id="image_mine_20_s" style="display: none"> 
+                <image src="image_mine_40/emb_s_tsne_3d.svg" id="image_mine_40_s" style="display: none"> 
+            </td>
+        </tr>
+        <tr>
+            <td>Cycle loss</td>
+            <td>
+                <image src="image_cycle_10/codebook_confusion_matrix.svg" id="image_cycle_10_cf" style="display: ">
+                <image src="image_cycle_20/codebook_confusion_matrix.svg" id="image_cycle_20_cf" style="display: none"> 
+                <image src="image_cycle_40/codebook_confusion_matrix.svg" id="image_cycle_40_cf" style="display: none"> 
+            </td>
+            <td>
+                <image src="image_cycle_10/emb_c_tsne_3d.svg" id="image_cycle_10_c" style="display: ">
+                <image src="image_cycle_20/emb_c_tsne_3d.svg" id="image_cycle_20_c" style="display: none"> 
+                <image src="image_cycle_40/emb_c_tsne_3d.svg" id="image_cycle_40_c" style="display: none">
+            </td>
+            <td>
+                <image src="image_cycle_10/emb_s_tsne_3d.svg" id="image_cycle_10_s" style="display: ">
+                <image src="image_cycle_20/emb_s_tsne_3d.svg" id="image_cycle_20_s" style="display: none"> 
+                <image src="image_cycle_40/emb_s_tsne_3d.svg" id="image_cycle_40_s" style="display: none"> 
+            </td>
+        </tr>
+        <tr>
+            <td>Legends</td>
+            <td>
+                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
+            </td>
+            <td>
+                <image src="image_legend_c.svg" id="image_c_legend" style="width: 42%; margin: auto">
+            </td>
+            <td>
+                <image src="image_legend_s.svg" id="image_s_legend" style="width: 100%; margin: auto">
+            </td>
+        </tr>
+    </table>
+    <br>
+    <h3>Please choose a content or style for traversal:</h3>
+    <table>
+        <tr>
+            <td>
+                Fix content index, traverse all styles:
+            </td>
+            <td>
+            Or
+            </td>
+            <td>
+                Fix style, traverse all content indices:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div id="select_image_fix_c"></div>
+            </td>
+            <td>
+            </td>
+            <td>
+                <div id="select_image_fix_s"></div>
+            </td>
+        </tr>
+    </table>
+    <!-- Fix content index, traverse all styles:
+    <div id="select_image_fix_c"></div>
+    Fix style, traverse all content indices:
+    <div id="select_image_fix_s"></div> -->
+    <h3>Synthesized results via content-style recombination</h3>
+    <table>
+        <tr>
+            <td>
+                V3 (Proposed)
+            </td>
+            <td>
+                <div id="transfer_image_v3"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                MINE-based
+            </td>
+            <td>
+                <div id="transfer_image_mine"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Cycle loss
+            </td>
+            <td>
+                <div id="transfer_image_cycle"></div>
+            </td>
+        </tr>
+    </table>
+    <!-- <div id="transfer_music"></div> -->
+    From both the visualizations and the recombination synthesis results, we can see that V3 successfully learns to disentangle the digits and colors well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a near one-to-one alignment with human knowledge when there is no codebook redundancy (K=10), and a full coverage and interpretability when there is codebook redundancy (K=20 and K=40). The style transfer results are also correct and semantically meaningful compared to the baselines.
+</div>
+<p><br><br><br></p>
 <h2 id="music-task-demo-learning-pitches-and-timbres">Music Task Demo: Learning Pitches and Timbres<a hidden class="anchor" aria-hidden="true" href="#music-task-demo-learning-pitches-and-timbres">#</a></h2>
 <div class="taskdemo-container">
     <h3>Example data</h3>
@@ -201,7 +353,7 @@ We contribute an unsupervised method that effectively learns from raw observatio
     </table>
 </div>
 <p>In this demo, we show that V3 can learn to disentangle pitch and timbre from raw music audio played by single instruments. Above shows the spectrograms and the audio files of some samples in the dataset. There are 12 pitches (a full octave) and 12 timbres involved in the dataset. Note that although each sample is played by only one instrument, there are rich velocity and amplitude envelope variations.</p>
-<p>We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the music dataset without any supervision except segmentation. Below shows the <strong>latent space visualizations</strong>, <strong>codebook confusion matrices</strong> and <strong>style transfer results</strong> of all methods under different codebook size settings.</p>
+<p>We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the music dataset without any supervision except segmentation. Below shows the <strong>codebook confusion matrices</strong>, <strong>latent space visualizations</strong> and <strong>content-style recombinations</strong> of all methods under different codebook size settings.</p>
 <div class="taskdemo-container">
     <h3>Please choose codebook size:</h3> 
     <input type="radio" value="12" checked="checked" name="music_codebook"> <!--checked设置默认选中-->
@@ -215,12 +367,17 @@ We contribute an unsupervised method that effectively learns from raw observatio
     <table style="text-align: center; margin:auto">
         <tr>
             <th>Method</td>
+            <th style="width: 33%">Codebook Confusion Matrix</td>
             <th style="width: 33%">Content Visualization</td>
             <th style="width: 33%">Style Visualization</td>
-            <th style="width: 33%">Codebook Confusion Matrix</td>
         </tr>
         <tr>
             <td>V3 (Proposed)</td>
+            <td>
+                <image src="music_v3_12/codebook_confusion_matrix.svg" id="music_v3_12_cf" style="display: ">
+                <image src="music_v3_24/codebook_confusion_matrix.svg" id="music_v3_24_cf" style="display: none"> 
+                <image src="music_v3_48/codebook_confusion_matrix.svg" id="music_v3_48_cf" style="display: none"> 
+            </td>
             <td>
                 <image src="music_v3_12/emb_c_tsne_3d.svg" id="music_v3_12_c" style="display: ">
                 <image src="music_v3_24/emb_c_tsne_3d.svg" id="music_v3_24_c" style="display: none"> 
@@ -231,14 +388,14 @@ We contribute an unsupervised method that effectively learns from raw observatio
                 <image src="music_v3_24/emb_s_tsne_3d.svg" id="music_v3_24_s" style="display: none"> 
                 <image src="music_v3_48/emb_s_tsne_3d.svg" id="music_v3_48_s" style="display: none"> 
             </td>
-            <td>
-                <image src="music_v3_12/codebook_confusion_matrix.svg" id="music_v3_12_cf" style="display: ">
-                <image src="music_v3_24/codebook_confusion_matrix.svg" id="music_v3_24_cf" style="display: none"> 
-                <image src="music_v3_48/codebook_confusion_matrix.svg" id="music_v3_48_cf" style="display: none"> 
-            </td>
         </tr>
         <tr>
             <td>MINE-based</td>
+            <td>
+                <image src="music_mine_12/codebook_confusion_matrix.svg" id="music_mine_12_cf" style="display: ">
+                <image src="music_mine_24/codebook_confusion_matrix.svg" id="music_mine_24_cf" style="display: none"> 
+                <image src="music_mine_48/codebook_confusion_matrix.svg" id="music_mine_48_cf" style="display: none"> 
+            </td>
             <td>
                 <image src="music_mine_12/emb_c_tsne_3d.svg" id="music_mine_12_c" style="display: ">
                 <image src="music_mine_24/emb_c_tsne_3d.svg" id="music_mine_24_c" style="display: none"> 
@@ -249,14 +406,14 @@ We contribute an unsupervised method that effectively learns from raw observatio
                 <image src="music_mine_24/emb_s_tsne_3d.svg" id="music_mine_24_s" style="display: none"> 
                 <image src="music_mine_48/emb_s_tsne_3d.svg" id="music_mine_48_s" style="display: none"> 
             </td>
-            <td>
-                <image src="music_mine_12/codebook_confusion_matrix.svg" id="music_mine_12_cf" style="display: ">
-                <image src="music_mine_24/codebook_confusion_matrix.svg" id="music_mine_24_cf" style="display: none"> 
-                <image src="music_mine_48/codebook_confusion_matrix.svg" id="music_mine_48_cf" style="display: none"> 
-            </td>
         </tr>
         <tr>
             <td>Cycle loss</td>
+            <td>
+                <image src="music_cycle_12/codebook_confusion_matrix.svg" id="music_cycle_12_cf" style="display: ">
+                <image src="music_cycle_24/codebook_confusion_matrix.svg" id="music_cycle_24_cf" style="display: none"> 
+                <image src="music_cycle_48/codebook_confusion_matrix.svg" id="music_cycle_48_cf" style="display: none"> 
+            </td>
             <td>
                 <image src="music_cycle_12/emb_c_tsne_3d.svg" id="music_cycle_12_c" style="display: ">
                 <image src="music_cycle_24/emb_c_tsne_3d.svg" id="music_cycle_24_c" style="display: none"> 
@@ -267,27 +424,22 @@ We contribute an unsupervised method that effectively learns from raw observatio
                 <image src="music_cycle_24/emb_s_tsne_3d.svg" id="music_cycle_24_s" style="display: none"> 
                 <image src="music_cycle_48/emb_s_tsne_3d.svg" id="music_cycle_48_s" style="display: none"> 
             </td>
-            <td>
-                <image src="music_cycle_12/codebook_confusion_matrix.svg" id="music_cycle_12_cf" style="display: ">
-                <image src="music_cycle_24/codebook_confusion_matrix.svg" id="music_cycle_24_cf" style="display: none"> 
-                <image src="music_cycle_48/codebook_confusion_matrix.svg" id="music_cycle_48_cf" style="display: none"> 
-            </td>
         </tr>
         <tr>
             <td>Legends</td>
+            <td>
+                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
+            </td>
             <td>
                 <image src="music_legend_c.svg" id="music_c_legend" style="width: 42%; margin: auto">
             </td>
             <td>
                 <image src="music_legend_s.svg" id="music_s_legend" style="width: 100%; margin: auto">
             </td>
-            <td>
-                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
-            </td>
         </tr>
     </table>
     <br>
-    <h3>Please choose content or style for transfer:</h3>
+    <h3>Please choose content or style for traversal:</h3>
     <table>
         <tr>
             <td>
@@ -315,7 +467,7 @@ We contribute an unsupervised method that effectively learns from raw observatio
     <div id="select_music_fix_c"></div>
     Fix style, traverse all content indices:
     <div id="select_music_fix_s"></div> -->
-    <h3>Transfer results</h3>
+    <h3>Synthesized results via content-style recombination</h3>
     <table>
         <tr>
             <td>
@@ -343,159 +495,7 @@ We contribute an unsupervised method that effectively learns from raw observatio
         </tr>
     </table>
     <!-- <div id="transfer_music"></div> -->
-    From both the visualizations and the style transfer results, we can see that V3 successfully learns to disentangle the pitches and timbres well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a clear one-to-one alignment with human knowledge when there is no codebook redundancy (K=12), and most codebook entries are still interpretable when there is codebook redundancy (K=24 and K=48). The style transfer results are also correct and semantically meaningful when K=12 compared to the baselines. Even though there are imperfections when K=24 and K=48, the results are still better than the baselines as all pitches are covered when traversing all content indices with a fixed style, and all notes are produced as supposed when traversing all timbres with a meaningful fixed content index well-aligned with human knowledge. 
-</div>
-<p><br><br><br></p>
-<h2 id="image-task-demo-learning-digits-and-colors">Image Task Demo: Learning Digits and Colors<a hidden class="anchor" aria-hidden="true" href="#image-task-demo-learning-digits-and-colors">#</a></h2>
-<p><a id="image"></a></p>
-<div class="taskdemo-container">
-    <h3>Example data</h3>
-    <image src="image_data_sample.svg" style="display: ">
-</div>
-<p>In this demo, we show that V3 can learn to disentangle digits and colors from images of written digit strings. Above shows eight samples of different colors in the dataset. All 10 digits are involved, written in eight different colors. Note that although every line is written in a single color, there are rich variations in the position, noise, foreground and background color jitter, and the blurriness of digits.</p>
-<p>We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the image dataset without any supervision except segmentation. Below shows the <strong>latent space visualizations</strong>, <strong>codebook confusion matrices</strong> and <strong>style transfer results</strong> of all methods under different codebook size settings.</p>
-<div class="taskdemo-container">
-    <h3>Please choose codebook size:</h3> 
-    <input type="radio" value="10" checked="checked" name="image_codebook"> <!--checked设置默认选中-->
-    K=10
-    <input type="radio" value="20" name="image_codebook">
-    K=20
-    <input type="radio" value="40" name="image_codebook">
-    K=40
-    <br>
-    <h3>Visualizations</h3>
-    <table style="text-align: center; margin:auto">
-        <tr>
-            <th>Method</td>
-            <th style="width: 33%">Content Visualization</td>
-            <th style="width: 33%">Style Visualization</td>
-            <th style="width: 33%">Codebook Confusion Matrix</td>
-        </tr>
-        <tr>
-            <td>V3 (Proposed)</td>
-            <td>
-                <image src="image_v3_10/emb_c_tsne_3d.svg" id="image_v3_10_c" style="display: ">
-                <image src="image_v3_20/emb_c_tsne_3d.svg" id="image_v3_20_c" style="display: none"> 
-                <image src="image_v3_40/emb_c_tsne_3d.svg" id="image_v3_40_c" style="display: none">
-            </td>
-            <td>
-                <image src="image_v3_10/emb_s_tsne_3d.svg" id="image_v3_10_s" style="display: ">
-                <image src="image_v3_20/emb_s_tsne_3d.svg" id="image_v3_20_s" style="display: none"> 
-                <image src="image_v3_40/emb_s_tsne_3d.svg" id="image_v3_40_s" style="display: none"> 
-            </td>
-            <td>
-                <image src="image_v3_10/codebook_confusion_matrix.svg" id="image_v3_10_cf" style="display: ">
-                <image src="image_v3_20/codebook_confusion_matrix.svg" id="image_v3_20_cf" style="display: none"> 
-                <image src="image_v3_40/codebook_confusion_matrix.svg" id="image_v3_40_cf" style="display: none"> 
-            </td>
-        </tr>
-        <tr>
-            <td>MINE-based</td>
-            <td>
-                <image src="image_mine_10/emb_c_tsne_3d.svg" id="image_mine_10_c" style="display: ">
-                <image src="image_mine_20/emb_c_tsne_3d.svg" id="image_mine_20_c" style="display: none"> 
-                <image src="image_mine_40/emb_c_tsne_3d.svg" id="image_mine_40_c" style="display: none">
-            </td>
-            <td>
-                <image src="image_mine_10/emb_s_tsne_3d.svg" id="image_mine_10_s" style="display: ">
-                <image src="image_mine_20/emb_s_tsne_3d.svg" id="image_mine_20_s" style="display: none"> 
-                <image src="image_mine_40/emb_s_tsne_3d.svg" id="image_mine_40_s" style="display: none"> 
-            </td>
-            <td>
-                <image src="image_mine_10/codebook_confusion_matrix.svg" id="image_mine_10_cf" style="display: ">
-                <image src="image_mine_20/codebook_confusion_matrix.svg" id="image_mine_20_cf" style="display: none"> 
-                <image src="image_mine_40/codebook_confusion_matrix.svg" id="image_mine_40_cf" style="display: none"> 
-            </td>
-        </tr>
-        <tr>
-            <td>Cycle loss</td>
-            <td>
-                <image src="image_cycle_10/emb_c_tsne_3d.svg" id="image_cycle_10_c" style="display: ">
-                <image src="image_cycle_20/emb_c_tsne_3d.svg" id="image_cycle_20_c" style="display: none"> 
-                <image src="image_cycle_40/emb_c_tsne_3d.svg" id="image_cycle_40_c" style="display: none">
-            </td>
-            <td>
-                <image src="image_cycle_10/emb_s_tsne_3d.svg" id="image_cycle_10_s" style="display: ">
-                <image src="image_cycle_20/emb_s_tsne_3d.svg" id="image_cycle_20_s" style="display: none"> 
-                <image src="image_cycle_40/emb_s_tsne_3d.svg" id="image_cycle_40_s" style="display: none"> 
-            </td>
-            <td>
-                <image src="image_cycle_10/codebook_confusion_matrix.svg" id="image_cycle_10_cf" style="display: ">
-                <image src="image_cycle_20/codebook_confusion_matrix.svg" id="image_cycle_20_cf" style="display: none"> 
-                <image src="image_cycle_40/codebook_confusion_matrix.svg" id="image_cycle_40_cf" style="display: none"> 
-            </td>
-        </tr>
-        <tr>
-            <td>Legends</td>
-            <td>
-                <image src="image_legend_c.svg" id="image_c_legend" style="width: 42%; margin: auto">
-            </td>
-            <td>
-                <image src="image_legend_s.svg" id="image_s_legend" style="width: 100%; margin: auto">
-            </td>
-            <td>
-                <image src="confusion_mtx_legend.svg" id="cf_legend" style="width: 25%; margin: auto">
-            </td>
-        </tr>
-    </table>
-    <br>
-    <h3>Please choose content or style for transfer:</h3>
-    <table>
-        <tr>
-            <td>
-                Fix content index, traverse all styles:
-            </td>
-            <td>
-            Or
-            </td>
-            <td>
-                Fix style, traverse all content indices:
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <div id="select_image_fix_c"></div>
-            </td>
-            <td>
-            </td>
-            <td>
-                <div id="select_image_fix_s"></div>
-            </td>
-        </tr>
-    </table>
-    <!-- Fix content index, traverse all styles:
-    <div id="select_image_fix_c"></div>
-    Fix style, traverse all content indices:
-    <div id="select_image_fix_s"></div> -->
-    <h3>Transfer results</h3>
-    <table>
-        <tr>
-            <td>
-                V3 (Proposed)
-            </td>
-            <td>
-                <div id="transfer_image_v3"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                MINE-based
-            </td>
-            <td>
-                <div id="transfer_image_mine"></div>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                Cycle loss
-            </td>
-            <td>
-                <div id="transfer_image_cycle"></div>
-            </td>
-        </tr>
-    </table>
-    <!-- <div id="transfer_music"></div> -->
-    From both the visualizations and the style transfer results, we can see that V3 successfully learns to disentangle the digits and colors well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a near one-to-one alignment with human knowledge when there is no codebook redundancy (K=10), and a full coverage and interpretability when there is codebook redundancy (K=20 and K=40). The style transfer results are also correct and semantically meaningful compared to the baselines.
+    From both the visualizations and the recombination synthesis results, we can see that V3 successfully learns to disentangle the pitches and timbres well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a clear one-to-one alignment with human knowledge when there is no codebook redundancy (K=12), and most codebook entries are still interpretable when there is codebook redundancy (K=24 and K=48). The style transfer results are also correct and semantically meaningful when K=12 compared to the baselines. Even though there are imperfections when K=24 and K=48, the results are still better than the baselines as all pitches are covered when traversing all content indices with a fixed style, and all notes are produced as supposed when traversing all timbres with a meaningful fixed content index well-aligned with human knowledge. 
 </div>
 <script src="js/music.js"></script>
 <script src="js/image.js"></script>
