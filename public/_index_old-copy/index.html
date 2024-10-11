@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/V3-demo/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=V3-demo/livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</title>
 <meta name="keywords" content="">
 <meta name="description" content="Introduction In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style &mdash; content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples.">
 <meta name="author" content="">
-<link rel="canonical" href="https://v3-content-style.github.io/V3-demo/_index_old/">
+<link rel="canonical" href="http://localhost:1313/V3-demo/_index_old-copy/">
 <link crossorigin="anonymous" href="/V3-demo/assets/css/stylesheet.e750cebf9662ff2fc0d568ae89e0dd554c1d31c9b754f1fd940a4c5f41ce81af.css" integrity="sha256-51DOv5Zi/y/A1WiuieDdVUwdMcm3VPH9lApMX0HOga8=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://v3-content-style.github.io/V3-demo/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://v3-content-style.github.io/V3-demo/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://v3-content-style.github.io/V3-demo/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://v3-content-style.github.io/V3-demo/apple-touch-icon.png">
-<link rel="mask-icon" href="https://v3-content-style.github.io/V3-demo/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/V3-demo/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/V3-demo/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/V3-demo/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/V3-demo/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/V3-demo/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="en" href="https://v3-content-style.github.io/V3-demo/_index_old/">
+<link rel="alternate" hreflang="en" href="http://localhost:1313/V3-demo/_index_old-copy/">
 <noscript>
     <style>
         #theme-toggle,
@@ -56,63 +56,6 @@
 
     </style>
 </noscript>
-  
-
-<meta property="og:title" content="" />
-<meta property="og:description" content="Introduction In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style &mdash; content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://v3-content-style.github.io/V3-demo/_index_old/" /><meta property="article:section" content="" />
-
-
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="Introduction In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style &mdash; content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples."/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "",
-      "item": "https://v3-content-style.github.io/V3-demo/_index_old/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "",
-  "name": "",
-  "description": "Introduction In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style \u0026mdash; content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples.",
-  "keywords": [
-    
-  ],
-  "articleBody": " Introduction In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style — content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples. We integrate such inductive bias into an encoder-decoder architecture and name our method after V3 (variance-versus-invariance).\nIn this demo page, we provide interactive demos for the two tasks mentioned in the paper — disentangling digits and colors from images of written digit strings, and disentangling pitches and timbres from raw music audio played by single instruments. The demos allow you to explore the learned codebook as the emergent vocabulary, the learned latent space, and the synthesized results performed by recombining latent content and style representations.\nVisualizations of Symbol-level Interpretability and Latent Representations: You can adjust the codebook size through the radio buttons to see how the visualizations change. The confusion matrix of the codebook shows how well the learned vocabulary align with human knowledge. The horizontal axis represents the ground truth contents, and the vertical axis represents the learned codebook entries. The deeper the color, the higher the correlation. The t-SNE visualizations of latent content and style representations provide an intuitive view of disentanglement performance. The colors of data points denote ground truth content or style labels. Synthesized Results via Content-Style Recombination: We also illustrate the successfulness of content-style disentanglement by synthesizing new samples through recombining latent content and style factors. Under a specific codebook size, you can select an individual content or style to see the corresponding recombination results. If a content index is selected, we will show the style transfer results of this content recombined with all styles (taking the mean of the style representations). If a style index is selected, we will show the style transfer results of this style recombined with all contents. Note that the content indices are sorted in the order of the codebook. We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper. Note that all models shown in the demos have already got good reconstruction performance, which we omit here for simplicity.\nImage Task Demo: Learning Digits and Colors Example data In this demo, we show that V3 can learn to disentangle digits and colors from images of written digit strings. Above shows eight samples of different colors in the dataset. All 10 digits are involved, written in eight different colors. Note that although every line is written in a single color, there are rich variations in the position, noise, foreground and background color jitter, and the blurriness of digits.\nWe compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the image dataset without any supervision except segmentation. Below shows the codebook confusion matrices, latent space visualizations and content-style recombinations of all methods under different codebook size settings.\nPlease choose codebook size: K=10 K=20 K=40 Visualizations of symbol-level interpretability \u0026 latent representations Method Codebook Confusion Matrix Content Latent Space Style Latent Space V3 (Proposed) MINE-based Cycle loss Legends Please choose a content or style for traversal: Fix content index, traverse all styles: Or Fix style, traverse all content indices: Synthesized results via content-style recombination V3 (Proposed) MINE-based Cycle loss From both the visualizations and the recombination synthesis results, we can see that V3 successfully learns to disentangle the digits and colors well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a near one-to-one alignment with human knowledge when there is no codebook redundancy (K=10), and a full coverage and interpretability when there is codebook redundancy (K=20 and K=40). The style transfer results are also correct and semantically meaningful compared to the baselines. Music Task Demo: Learning Pitches and Timbres Example data In this demo, we show that V3 can learn to disentangle pitch and timbre from raw music audio played by single instruments. Above shows the spectrograms and the audio files of some samples in the dataset. There are 12 pitches (a full octave) and 12 timbres involved in the dataset. Note that although each sample is played by only one instrument, there are rich velocity and amplitude envelope variations.\nWe compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper, by training all three methods on the music dataset without any supervision except segmentation. Below shows the codebook confusion matrices, latent space visualizations and content-style recombinations of all methods under different codebook size settings.\nPlease choose codebook size: K=12 K=24 K=48 Visualizations of symbol-level interpretability \u0026 latent representations Method Codebook Confusion Matrix Content Latent Space Style Latent Space V3 (Proposed) MINE-based Cycle loss Legends Please choose content or style for traversal: Fix content index, traverse all styles: Or Fix style, traverse all content indices: Synthesized results via content-style recombination V3 (Proposed) MINE-based Cycle loss From both the visualizations and the recombination synthesis results, we can see that V3 successfully learns to disentangle the pitches and timbres well. The content and style representations show clear locality compared to ground truth labels. The confusion matrices show a clear one-to-one alignment with human knowledge when there is no codebook redundancy (K=12), and most codebook entries are still interpretable when there is codebook redundancy (K=24 and K=48). The style transfer results are also correct and semantically meaningful when K=12 compared to the baselines. Even though there are imperfections when K=24 and K=48, the results are still better than the baselines as all pitches are covered when traversing all content indices with a fixed style, and all notes are produced as supposed when traversing all timbres with a meaningful fixed content index well-aligned with human knowledge. ",
-  "wordCount" : "1000",
-  "inLanguage": "en",
-  "datePublished": "0001-01-01T00:00:00Z",
-  "dateModified": "0001-01-01T00:00:00Z",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://v3-content-style.github.io/V3-demo/_index_old/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://v3-content-style.github.io/V3-demo/favicon.ico"
-    }
-  }
-}
-</script>
 </head>
 
 <body class="" id="top">
@@ -131,22 +74,22 @@
     <nav class="nav">
         <div class="logo">
             <br>
-            <a href="https://v3-content-style.github.io/V3-demo/" accesskey="h" title="Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints (Alt + H)">Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</a>
+            <a href="http://localhost:1313/V3-demo/" accesskey="h" title="Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints (Alt + H)">Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</a>
             
         </div>
         <ul id="menu">
             <li>
-                <a href="https://v3-content-style.github.io/V3-demo/" title="Home">
+                <a href="http://localhost:1313/V3-demo/" title="Home">
                     <span><svg t="1713171311064" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10170" width="1em" height="1em"><path d="M928.32350815 477.82418963l-402.60140246-349.65478716c-10.22685235-8.80286025-25.37295013-8.80286025-35.47034866 0.12945383L92.95796148 480.80162765c-8.41449876 7.37886815-11.26248297 19.28862025-7.24941431 29.64492643 4.01306864 10.48576 13.98101333 17.34681283 25.11404246 17.34681283h55.79459951v277.16064395c-1.03563061 9.83849086-2.84798419 45.17938569 19.80643555 71.19960495 10.35630617 11.9097521 29.77438025 26.14967309 63.43237531 26.14967308h502.79866469c0.9061768 0 2.33016889 0.12945383 3.88361481 0.12945383 12.16865975 0 41.42522469-2.45962272 64.59745975-23.8195042 12.81592889-11.9097521 28.22093431-34.17581037 28.22093433-72.75305087V526.88719013l62.13783703-1.8123536c11.13302914-0.25890765 20.84206617-7.37886815 24.59622717-17.86462814 3.62470717-10.48576 0.64726914-22.13660445-7.76722963-29.38601876zM440.54148741 663.84933925c0-0.12945383 0.12945383-0.25890765 0.12945383-0.5178153 0.38836148-1.29453827 1.4239921-3.23634569 3.62470715-5.56651456 4.66033778-4.78979161 20.32425086-15.79336691 64.20909828-15.79336692 37.92997136 0 54.24115358 8.67340642 60.58439111 13.8515595 5.69596839 4.53088395 6.60214518 8.67340642 6.73159902 9.70903705v182.91825778H440.54148741V663.84933925z m0 0" fill="#cc77bbe0" p-id="10171"></path></svg>Home</span>
                 </a>
             </li>
             <li>
-                <a href="https://v3-content-style.github.io/V3-demo/" title="Arxiv (TBA)">
+                <a href="http://localhost:1313/V3-demo/" title="Arxiv (TBA)">
                     <span><svg t="1713170884471" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3361" width="0.8em" height="0.8em"><path d="M0 0m192 0l640 0q192 0 192 192l0 640q0 192-192 192l-640 0q-192 0-192-192l0-640q0-192 192-192Z" fill="#B31B1B" p-id="3362"></path><path d="M783.424 953.216l-275.2-229.952 24.768-16.96-209.792 144.384a47.36 47.36 0 0 1-22.976 6.4 40.704 40.704 0 0 1-30.08-13.76 42.944 42.944 0 0 1 0-56l131.2-153.216-85.824-71.68a52.544 52.544 0 0 1-17.728-41.216 75.52 75.52 0 0 1 17.728-47.04l90.176-70.4-216.64-284.032a36.224 36.224 0 0 1 4.352-45.696 33.792 33.792 0 0 1 24-9.984 45.632 45.632 0 0 1 23.168 7.104l305.216 223.552 155.456-121.088a46.272 46.272 0 0 1 22.912-6.4 40.448 40.448 0 0 1 30.08 13.888 42.88 42.88 0 0 1 0 55.872l-112.704 129.408 122.816 92.16a53.248 53.248 0 0 1 17.664 41.344 75.648 75.648 0 0 1-17.664 47.04l-143.04 98.432 4.224-2.88 209.728 261.824a36.224 36.224 0 0 1-4.352 45.696 33.344 33.344 0 0 1-23.872 9.984 47.168 47.168 0 0 1-23.616-6.784z m-483.648-141.952a19.968 19.968 0 0 0-2.432 5.248 10.112 10.112 0 0 0 2.24 1.856 6.976 6.976 0 0 0 2.624-0.704l166.4-114.688-44.032-36.8z m229.824-312.576l80.896 107.008 126.528-87.04a36.608 36.608 0 0 0 6.016-19.2 17.344 17.344 0 0 0-3.712-11.648l-507.904-375.744z" fill="#FFFFFF" p-id="3363"></path></svg>Arxiv (TBA)</span>
                 </a>
             </li>
             <li>
-                <a href="https://v3-content-style.github.io/V3-demo/" title="Github (TBA)">
+                <a href="http://localhost:1313/V3-demo/" title="Github (TBA)">
                     <span><svg t="1713170853097" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2376" width="1em" height="1em"><path d="M511.6 76.3C264.3 76.2 64 276.4 64 523.5 64 718.9 189.3 885 363.8 946c23.5 5.9 19.9-10.8 19.9-22.2v-77.5c-135.7 15.9-141.2-73.9-150.3-88.9C215 726 171.5 718 184.5 703c30.9-15.9 62.4 4 98.9 57.9 26.4 39.1 77.9 32.5 104 26 5.7-23.5 17.9-44.5 34.7-60.8-140.6-25.2-199.2-111-199.2-213 0-49.5 16.3-95 48.3-131.7-20.4-60.5 1.9-112.3 4.9-120 58.1-5.2 118.5 41.6 123.2 45.3 33-8.9 70.7-13.6 112.9-13.6 42.4 0 80.2 4.9 113.5 13.9 11.3-8.6 67.3-48.8 121.3-43.9 2.9 7.7 24.7 58.3 5.5 118 32.4 36.8 48.9 82.7 48.9 132.3 0 102.2-59 188.1-200 212.9 23.5 23.2 38.1 55.4 38.1 91v112.5c0.8 9 0 17.9 15 17.9 177.1-59.7 304.6-227 304.6-424.1 0-247.2-200.4-447.3-447.5-447.3z" p-id="2377" fill="#eeaa00"></path></svg>Github (TBA)</span>
                 </a>
             </li>
@@ -545,7 +488,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://v3-content-style.github.io/V3-demo/">Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/V3-demo/">Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</a></span> · 
 
     <span>
         Powered by

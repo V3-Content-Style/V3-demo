@@ -11,19 +11,23 @@ align: justify
 
 ## Introduction
 
-In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style --- **content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples**. We integrate such inductive bias into an encoder-decoder architecture and name our method after V3 (**v**ariance-**v**ersus-in**v**ariance).
+In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the meta-level insight of domain-general statistical differences between content and style --- **content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples**. We integrate such inductive bias into an encoder-decoder architecture and name our method after V3 (**v**ariance-**v**ersus-in**v**ariance).
 
-<!-- This demonstration page serves as a supplement to the paper.  -->
+<img src="v3_inductive_bias.png" style="width: 64%; margin: auto">
 
-In this demo page, we provide interactive demos for the two tasks mentioned in the paper --- disentangling digits and colors from images of written digit strings, and disentangling pitches and timbres from raw music audio played by single instruments. The demos allow you to explore the learned codebook as the emergent vocabulary, the learned latent space, and the synthesized results performed by recombining latent content and style representations.
-- **Visualizations of Symbol-level Interpretability and Latent Representations**: You can adjust the codebook size through the radio buttons to see how the visualizations change. The **confusion matrix** of the codebook shows how well the learned vocabulary **align with human knowledge**. The horizontal axis represents the ground truth contents, and the vertical axis represents the learned codebook entries. The deeper the color, the higher the correlation. The **t-SNE visualizations** of latent content and style representations provide an intuitive view of **disentanglement** performance. The colors of data points denote ground truth content or style labels.
-- **Synthesized Results via Content-Style Recombination**: We also illustrate **the successfulness of content-style disentanglement** by synthesizing new samples through recombining latent content and style factors. Under a specific codebook size, you can select an individual content or style to see the corresponding recombination results. If a content index is selected, we will show the style transfer results of this content recombined with all styles (taking the mean of the style representations). If a style index is selected, we will show the style transfer results of this style recombined with all contents. Note that the content indices are sorted in the order of the codebook.
+This demonstration page serves as a supplement to Section 4.2 and 4.4 in the paper. Specifically, we provide provide interactive demos for experiments on the two synthetic datasets involved in the paper --- **PhoneNums** and **InsNotes**. PhoneNums contains images of written digit strings with different colors and other style variations, and InsNotes contains monophonic music audio played by single instruments with different pitches and expression variations.
+
+<!-- The demos allow you to explore the learned codebook as the emergent vocabulary, the learned latent space, and the synthesized results performed by recombining latent content and style representations. -->
+
+- **Visualizations of Latent Representations and Codebook Confusion Matrix**: As a supplement to Section 4.2 and Section 4.4, we provide a visual exploration of the learned latent representations of content and style, and confusion matrices between the learned codebook and ground truth content labels. Latent representations are visualized using t-SNE in 3D space. The colors of data points denote ground truth content or style labels. Visualizations with good groupings indicate better disentanglement performance. The codebook confusion matrix shows how well the learned vocabulary aligns with human knowledge. The horizontal axis represents the ground truth contents, and the vertical axis represents the learned codebook entries. The deeper the color, the higher the correlation.
+  
+- **Synthesized Results via Content-Style Recombination**: As a supplement to Section 4.4, we illustrate the interpretability of codebook and successfulness of content-style disentanglement by synthesizing new samples through recombining latent content and style factors. Under a specific codebook size, you can select an individual content or style source to see the corresponding recombination results. If a content index is selected, we will show the style transfer results of this content recombined with all styles (taking the mean of the style representations). If a style index is selected, we will show the style transfer results of this style recombined with all contents. Note that the content indices are sorted in the order of the codebook.
 
 We compare V3 with the MINE-based method and the cycle loss-based method as mentioned in the paper. Note that all models shown in the demos have already got **good reconstruction performance**, which we omit here for simplicity.
 
 <br>
 
-## Image Task Demo: Learning Digits and Colors
+## PhoneNums: Learning Digits and Colors
 <a id="image"></a>
 
 <div class="taskdemo-container">
@@ -181,7 +185,7 @@ We compare V3 with the MINE-based method and the cycle loss-based method as ment
 
 <br><br><br>
 
-## Music Task Demo: Learning Pitches and Timbres
+## InsNotes: Learning Pitches and Timbres
 <div class="taskdemo-container">
     <h3>Example data</h3>
     <table style="text-align: center; margin:auto">
