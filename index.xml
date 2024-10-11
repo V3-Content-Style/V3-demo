@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>Emergent Interpretable Symbols and Content-Style Disentanglement via Variance-Invariance Constraints</title>
+    <title>Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</title>
     <link>https://v3-content-style.github.io/V3-demo/</link>
-    <description>Recent content on Emergent Interpretable Symbols and Content-Style Disentanglement via Variance-Invariance Constraints</description>
+    <description>Recent content on Unsupervised Disentanglement of Content and Style via Variance-Invariance Constraints</description>
     <generator>Hugo -- 0.126.1</generator>
     <language>en-us</language>
     <atom:link href="https://v3-content-style.github.io/V3-demo/index.xml" rel="self" type="application/rss+xml" />
@@ -12,6 +12,13 @@
       <link>https://v3-content-style.github.io/V3-demo/_index_old/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://v3-content-style.github.io/V3-demo/_index_old/</guid>
+      <description>Introduction In this work, we contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style &amp;mdash; content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples.</description>
+    </item>
+    <item>
+      <title></title>
+      <link>https://v3-content-style.github.io/V3-demo/_index_old_old/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://v3-content-style.github.io/V3-demo/_index_old_old/</guid>
       <description>Abstract: We contribute an unsupervised method that effectively learns from raw observation and disentangles its latent space into content and style representations. Unlike most disentanglement algorithms that rely on domain-specific labels and knowledge, our method is based on the insight of domain-general statistical differences between content and style &amp;mdash; content varies more among different fragments within a sample but maintains an invariant vocabulary across data samples, whereas style remains relatively invariant within a sample but exhibits more significant variation across different samples.</description>
     </item>
   </channel>
